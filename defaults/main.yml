@@ -1,7 +1,7 @@
 btsync_url:
-  i386:   https://download-cdn.getsync.com/stable/{{ ansible_system|lower }}-i386/BitTorrent-Sync_i386.tar.gz
-  x86_64:   https://download-cdn.getsync.com/stable/{{ ansible_system|lower }}-x64/BitTorrent-Sync_x64.tar.gz
-  arm:   https://download-cdn.getsync.com/stable/{{ ansible_system|lower }}-arm/BitTorrent-Sync_arm.tar.gz
+  i386:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-i386/resilio-sync_i386.tar.gz
+  x86_64:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-x64/resilio-sync_x64.tar.gz
+  arm:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-arm/resilio-sync_arm.tar.gz
 btsync_upnp: true
 btsync_webui:
   - listen: 0.0.0.0
