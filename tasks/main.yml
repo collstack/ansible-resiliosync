@@ -2,10 +2,10 @@
 
 - name: create user
   user:
-      name: "{{ btsync_user }}"
+      name: "{{ rslsync_user }}"
 
 - name: download
-  get_url: url="{{ btsync_url[ansible_architecture] }}"
+  get_url: url="{{ rslsync_url[ansible_architecture] }}"
            dest=/tmp/rslsync.tar.gz
   register: download
 
@@ -13,33 +13,30 @@
   command: tar xvzf /tmp/rslsync.tar.gz -C /tmp
   when: download | changed
 
-- name: copy btsync to /usr/local/bin
+- name: copy rslsync to /usr/local/bin
   command: cp /tmp/rslsync /usr/local/bin/rslsync
-  notify: start btsync
+  notify: start rslsync
   when: download | changed
 
 #- name: install service
-#  template: src=btsync dest=/etc/init.d/btsync mode=755
-
+#  template: src=rslsync dest=/etc/init.d/rslsync mode=755
 
 - name: create .sync directory
-  file: path=/home/{{ btsync_user }}/.sync owner={{ btsync_user }} group={{ btsync_user }} mode=0700 state=directory
+  file: path=/home/{{ rslsync_user }}/.sync owner={{ rslsync_user }} group={{ rslsync_user }} mode=0700 state=directory
 
 - name: copy config
-  template: src=config.json dest=/home/{{ btsync_user }}/.sync/ owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  notify: restart btsync
+  template: src=config.json dest=/home/{{ rslsync_user }}/.sync/ owner={{ rslsync_user }} group={{ rslsync_user }} mode=700
+  notify: restart rslsync
 
 - name: install service
   template: src=rslsync.service dest=/etc/systemd/system/rslsync.service mode=755
 
 - name: activate service
   systemd: state=started name=rslsync
-  #service: name=btsync enabled=yes
+  #service: name=rslsync enabled=yes
 
-
-    
 - name: create folders
-  file: path={{ item.path }} recurse=yes state=directory owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  with_items: "{{ btsync_shared_folders }}"
-  when: btsync_shared_folders is defined
+  file: path={{ item.path }} recurse=yes state=directory owner={{ rslsync_user }} group={{ rslsync_user }} mode=700
+  with_items: "{{ rslsync_shared_folders }}"
+  when: rslsync_shared_folders is defined
 

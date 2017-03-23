@@ -1,45 +1,45 @@
-# Ansible btsync
+# Ansible rslsync
 
-Install and manage a btsync server on Linux.
+Install and manage a rslsync server on Linux.
 
-* download btsync
+* download rslsync
 * install it on /usr/local
 * create init service
 * manage the config file with shared folders
 
 # Role Variables
 
-**btsync_port**: Optional. Specify port to run on. Defaults to a random port at startup.
+**rslsync_port**: Optional. Specify port to run on. Defaults to a random port at startup.
 
-**btsync_upnp**: Optional. Whether or not to use uPNP. True by default
+**rslsync_upnp**: Optional. Whether or not to use uPNP. True by default
 
-**btsync_user**: Required. The user who run the btsync daemon.
+**rslsync_user**: Required. The user who run the rslsync daemon.
 
-**btsync_webui.listen**: Optional. The ip to listen. Default 0.0.0.0.
+**rslsync_webui.listen**: Optional. The ip to listen. Default 0.0.0.0.
 
-**btsync_webui.user**: Required. The username used to protect the webui
+**rslsync_webui.user**: Required. The username used to protect the webui
 
-**btsync_webui.password**: Required. The password used to protect the webui
+**rslsync_webui.password**: Required. The password used to protect the webui
 
-**btsync_webui.api_key**: Optional. The api key to use the btsync API (http://www.bittorrent.com/sync/developers/api)
+**rslsync_webui.api_key**: Optional. The api key to use the rslsync API (http://www.bittorrent.com/sync/developers/api)
 
-**btsync_shared_folders**: Optional. An array of shared folders
+**rslsync_shared_folders**: Optional. An array of shared folders
 
-**btsync_shared_folders.0.path**: The path where the files will be synced
+**rslsync_shared_folders.0.path**: The path where the files will be synced
 
-**btsync_shared_folders.0.key**: The private key for the shared folder
+**rslsync_shared_folders.0.key**: The private key for the shared folder
 
 # Example
 
 ```yaml
   roles:
-    - role: btsync
-      btsync_user: thelocaluser
-      btsync_webui:
+    - role: rslsync
+      rslsync_user: thelocaluser
+      rslsync_webui:
         user: admin
         password: admin
         api_key: api_key
-      btsync_shared_folders:
+      rslsync_shared_folders:
         - path: /path/to/shared/folder
           key: PRIVATEKEY
         - add more

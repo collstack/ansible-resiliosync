@@ -1,14 +1,14 @@
-btsync_url:
+rslsync_url:
   i386:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-i386/resilio-sync_i386.tar.gz
   x86_64:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-x64/resilio-sync_x64.tar.gz
   arm:   https://download-cdn.resilio.com/stable/{{ ansible_system|lower }}-arm/resilio-sync_arm.tar.gz
-btsync_upnp: true
-btsync_webui:
+rslsync_upnp: true
+rslsync_webui:
   - listen: 0.0.0.0
-btsync_port: 0
-btsync_use_relay_server: true
-btsync_use_tracker: true
-btsync_use_dht: false
-btsync_search_lan: true
-btsync_use_sync_trash: true
-btsync_eula_accept: false
+rslsync_port: 0
+rslsync_use_relay_server: true
+rslsync_use_tracker: true
+rslsync_use_dht: false
+rslsync_search_lan: true
+rslsync_use_sync_trash: true
+rslsync_eula_accept: false
