@@ -1,32 +1,32 @@
 {
-  "device_name": "btsync_{{ btsync_user }}",
-  "listening_port": {{ btsync_port }},
-  "storage_path": "/home/{{ btsync_user }}/.sync",
+  "device_name": "rslsync_{{ rslsync_user }}",
+  "listening_port": {{ rslsync_port }},
+  "storage_path": "/home/{{ rslsync_user }}/.sync",
   "check_for_updates": false,
-  "use_upnp": {{btsync_upnp|lower}},
+  "use_upnp": {{rslsync_upnp|lower}},
   "download_limit": 0,
   "upload_limit": 0,
-  "agree_to_EULA": {% if btsync_eula_accept -%}"yes"{% else -%}"no"{% endif -%},
+  "agree_to_EULA": {% if rslsync_eula_accept -%}"yes"{% else -%}"no"{% endif -%},
   "webui": {
-     {% if btsync_webui.get('api_key') -%}
-     "api_key"  : "{{ btsync_webui.api_key }}",
+     {% if rslsync_webui.get('api_key') -%}
+     "api_key"  : "{{ rslsync_webui.api_key }}",
      {% endif -%}
-     "listen": "{{ btsync_webui.listen }}:8888",
-     "login" : "{{ btsync_webui.user }}",
-     "password" : "{{ btsync_webui.password }}"
+     "listen": "{{ rslsync_webui.listen }}:8888",
+     "login" : "{{ rslsync_webui.user }}",
+     "password" : "{{ rslsync_webui.password }}"
   },
   "shared_folders": [
-    {% if btsync_shared_folders is defined -%}
-    {% for folder in btsync_shared_folders %}
+    {% if rslsync_shared_folders is defined -%}
+    {% for folder in rslsync_shared_folders %}
     {
       "secret" : "{{ folder.key }}",
       "dir" : "{{ folder.path }}",
 
-      "use_relay_server" : {{folder.use_relay_server|default(btsync_use_relay_server)|lower}},
-      "use_tracker" : {{folder.use_tracker|default(btsync_use_tracker)|lower}},
-      "use_dht" : {{folder.use_dht|default(btsync_use_dht)|lower}},
-      "search_lan" : {{folder.search_lan|default(btsync_search_lan)|lower}},
-      "use_sync_trash" : {{folder.use_sync_trash|default(btsync_use_sync_trash)|lower}}
+      "use_relay_server" : {{folder.use_relay_server|default(rslsync_use_relay_server)|lower}},
+      "use_tracker" : {{folder.use_tracker|default(rslsync_use_tracker)|lower}},
+      "use_dht" : {{folder.use_dht|default(rslsync_use_dht)|lower}},
+      "search_lan" : {{folder.search_lan|default(rslsync_search_lan)|lower}},
+      "use_sync_trash" : {{folder.use_sync_trash|default(rslsync_use_sync_trash)|lower}}
     }{% if not loop.last -%},{% endif -%}
     {% endfor %}
     {% endif -%}
