@@ -21,7 +21,6 @@
 #- name: install service
 #  template: src=rslsync dest=/etc/init.d/rslsync mode=755
 
-
 - name: create .sync directory
   file: path=/home/{{ rslsync_user }}/.sync owner={{ rslsync_user }} group={{ rslsync_user }} mode=0700 state=directory
 
@@ -36,8 +35,6 @@
   systemd: state=started name=rslsync
   #service: name=rslsync enabled=yes
 
-
-    
 - name: create folders
   file: path={{ item.path }} recurse=yes state=directory owner={{ rslsync_user }} group={{ rslsync_user }} mode=700
   with_items: "{{ rslsync_shared_folders }}"
