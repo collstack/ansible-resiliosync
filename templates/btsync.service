@@ -1,0 +1,11 @@
+[Unit]
+Description=rslsync
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/rslsync  --config /home/{{ btsync_user }}/.sync/config.json
+Type=forking
+PIDFile=/var/spool/rslsync/pid/master.pid
+
+[Install]
+WantedBy=default.target

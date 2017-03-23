@@ -1,23 +1,26 @@
 ---
+
+- name: create user
+  user:
+      name: "{{ btsync_user }}"
+
 - name: download
   get_url: url="{{ btsync_url[ansible_architecture] }}"
-           dest=/tmp/btsync.tar.gz
+           dest=/tmp/rslsync.tar.gz
   register: download
 
 - name: extract
-  command: tar xvzf /tmp/btsync.tar.gz -C /tmp
+  command: tar xvzf /tmp/rslsync.tar.gz -C /tmp
   when: download | changed
 
 - name: copy btsync to /usr/local/bin
-  command: cp /tmp/btsync /usr/local/bin/
+  command: cp /tmp/rslsync /usr/local/bin/rslsync
   notify: start btsync
   when: download | changed
 
-- name: install service
-  template: src=btsync dest=/etc/init.d/btsync mode=755
+#- name: install service
+#  template: src=btsync dest=/etc/init.d/btsync mode=755
 
-- name: activate service
-  service: name=btsync enabled=yes
 
 - name: create .sync directory
   file: path=/home/{{ btsync_user }}/.sync owner={{ btsync_user }} group={{ btsync_user }} mode=0700 state=directory
@@ -26,7 +29,17 @@
   template: src=config.json dest=/home/{{ btsync_user }}/.sync/ owner={{ btsync_user }} group={{ btsync_user }} mode=700
   notify: restart btsync
 
+- name: install service
+  template: src=rslsync.service dest=/etc/systemd/system/rslsync.service mode=755
+
+- name: activate service
+  systemd: state=started name=rslsync
+  #service: name=btsync enabled=yes
+
+
+    
 - name: create folders
   file: path={{ item.path }} recurse=yes state=directory owner={{ btsync_user }} group={{ btsync_user }} mode=700
-  with_items: btsync_shared_folders
+  with_items: "{{ btsync_shared_folders }}"
   when: btsync_shared_folders is defined
+

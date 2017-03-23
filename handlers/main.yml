@@ -1,9 +1,12 @@
 ---
 - name: start btsync
-  service: name=btsync state=started
+  #service: name=btsync state=started
+  systemd: state=started name=rslsync
 
 - name: restart btsync
-  service: name=btsync state=restarted
+  #service: name=btsync state=restarted
+  systemd: state=restarted name=rslsync
 
 - name: stop btsync
-  service: name=btsync state=restarted
+  #service: name=btsync state=restarted
+  systemd: state=restarted name=rslsync
