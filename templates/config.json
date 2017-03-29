@@ -1,5 +1,5 @@
 {
-  "device_name": "rslsync_{{ rslsync_user }}",
+  "device_name": "{{ inventory_hostname }}",
   "listening_port": {{ rslsync_port }},
   "storage_path": "/home/{{ rslsync_user }}/.sync",
   "check_for_updates": false,
